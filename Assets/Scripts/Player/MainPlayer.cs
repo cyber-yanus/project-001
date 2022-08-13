@@ -36,5 +36,10 @@ namespace GribnoySup.TowerUp.Player
         {
             AttackStateActivated?.Invoke(AttackStateType.BoostAttack);
         }
+
+        public void SetActiveTriggerDetector(bool value)
+        {
+            triggerDetector.SetActiveValue(value);
+        }
     }
 }

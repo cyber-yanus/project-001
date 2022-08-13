@@ -1,33 +1,23 @@
 using GribnoySup.TowerUp.Configs;
 using DG.Tweening;
 using Zenject;
-using System;
 
 
 namespace GribnoySup.TowerUp.States.MoveStates.Variants
 {
-    public class FallState : IMovementState
+    public class FallState : BaseMoveState
     {
-        private MovementStatesContainer _movementStatesContainer;
-        
         private FallConfig _fallConfig;
-
-        public event Action StateExecuteStarted;
-        public event Action StateExecuteEnded;
-
-
+        
+        
 
         public FallState(DiContainer diContainer)
         {
             _fallConfig = diContainer.Resolve<FallConfig>();
+            StateConfig = _fallConfig;
         }
 
-        public void InitMovementState(MovementStatesContainer movementStatesContainer)
-        {
-            _movementStatesContainer = movementStatesContainer;
-        }
-
-        public void Execute()
+        public override void Execute()
         {
             Fall();
         }
@@ -40,10 +30,10 @@ namespace GribnoySup.TowerUp.States.MoveStates.Variants
             var fallDuration = _fallConfig.FallDuration;
             var fallAnimationType = _fallConfig.FallAnimationType;
 
-            var target = _movementStatesContainer.Target;
+            var target = MovementStatesContainer.Target;
             
-            _movementStatesContainer.MovementTween?.Kill();
-            _movementStatesContainer.MovementTween = target.DOMoveY(endPositionY, fallDuration)
+            MovementStatesContainer.MovementTween?.Kill();
+            MovementStatesContainer.MovementTween = target.DOMoveY(endPositionY, fallDuration)
                 .SetEase(fallAnimationType)
                 .OnComplete(() => StateExecuteEnded?.Invoke());
         }

@@ -9,7 +9,7 @@ namespace GribnoySup.TowerUp.States.AttackStates
         }
 
 
-        public IState GetStateByType(AttackStateType moveStateType)
+        public IState<AttackStateType> GetStateByType(AttackStateType moveStateType)
         {
             // switch (moveStateType)
             // {
