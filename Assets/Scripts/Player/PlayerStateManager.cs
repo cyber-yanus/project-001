@@ -28,6 +28,9 @@ namespace GribnoySup.TowerUp.Player
             
             mainPlayer.MoveStateActivated += ActivateMoveState;
             mainPlayer.AttackStateActivated += ActivateAttackState;
+
+            var fallState = _movementStatesContainer.GetStateByType(MoveStateType.Fall);
+            fallState.StateExecuteEnded += mainPlayer.Jump;
         }
 
         private void ActivateMoveState(MoveStateType moveStateType)

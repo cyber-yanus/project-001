@@ -1,6 +1,5 @@
 using GribnoySup.TowerUp.Configs;
 using DG.Tweening;
-using UnityEngine;
 using Zenject;
 using System;
 
