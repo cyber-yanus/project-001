@@ -1,5 +1,6 @@
-using GribnoySup.TowerUp.States.MoveStates;
 using GribnoySup.TowerUp.States.MoveStates.Variants;
+using GribnoySup.TowerUp.States.AttackStates;
+using GribnoySup.TowerUp.States.MoveStates;
 using Zenject;
 
 namespace GribnoySup.TowerUp.Zenject
@@ -10,7 +11,8 @@ namespace GribnoySup.TowerUp.Zenject
         {
             BindFallState();
             BindJumpState();
-            
+
+            BindAttackStatesContainer();
             BindMovementStatesContainer();
         }
 
@@ -34,6 +36,14 @@ namespace GribnoySup.TowerUp.Zenject
         {
             Container
                 .Bind<MovementStatesContainer>()
+                .FromNew()
+                .AsTransient();
+        }
+        
+        private void BindAttackStatesContainer()
+        {
+            Container
+                .Bind<AttackStatesContainer>()
                 .FromNew()
                 .AsTransient();
         }

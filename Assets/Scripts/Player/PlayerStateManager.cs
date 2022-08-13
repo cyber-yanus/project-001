@@ -22,7 +22,7 @@ namespace GribnoySup.TowerUp.Player
             var mainPlayer = diContainer.Resolve<MainPlayer>();
 
             _movementStatesContainer = diContainer.Resolve<MovementStatesContainer>();
-            //_attackStatesContainer = new AttackStatesContainer();
+            _attackStatesContainer = diContainer.Resolve<AttackStatesContainer>();
 
             _movementStatesContainer.Init(mainPlayer.transform);
             
