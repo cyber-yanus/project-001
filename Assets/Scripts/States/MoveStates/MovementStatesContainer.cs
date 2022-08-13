@@ -28,7 +28,7 @@ namespace GribnoySup.TowerUp.States.MoveStates
             InitAllStates();
         }
 
-        public IState GetStateByType(MoveStateType moveStateType)
+        public IState<MoveStateType> GetStateByType(MoveStateType moveStateType)
         {
             return moveStateType switch
             {

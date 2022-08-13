@@ -1,33 +1,24 @@
 using GribnoySup.TowerUp.Configs;
-using Zenject;
-using System;
 using DG.Tweening;
+using Zenject;
+
 
 
 namespace GribnoySup.TowerUp.States.MoveStates.Variants
 {
-    public class JumpState : IMovementState
+    public class JumpState : BaseMoveState
     {
-        private MovementStatesContainer _movementStatesContainer;
-        
         private JumpConfig _jumpConfig;
         
-        public event Action StateExecuteStarted;
-        public event Action StateExecuteEnded;
-
-
+        
         
         public JumpState(DiContainer diContainer)
         {
             _jumpConfig = diContainer.Resolve<JumpConfig>();
+            StateConfig = _jumpConfig;
         }
 
-        public void InitMovementState(MovementStatesContainer movementStatesContainer)
-        {
-            _movementStatesContainer = movementStatesContainer;
-        }
-
-        public void Execute()
+        public override void Execute()
         {
             Jump();   
         }
@@ -40,10 +31,10 @@ namespace GribnoySup.TowerUp.States.MoveStates.Variants
             var jumpDuration = _jumpConfig.JumpDuration;
             var jumpAnimationType = _jumpConfig.JumpAnimationType;
             
-            var target = _movementStatesContainer.Target;
+            var target = MovementStatesContainer.Target;
             
-            _movementStatesContainer.MovementTween?.Kill();
-            _movementStatesContainer.MovementTween = target.DOMoveY(jumpPositionY, jumpDuration)
+            MovementStatesContainer.MovementTween?.Kill();
+            MovementStatesContainer.MovementTween = target.DOMoveY(jumpPositionY, jumpDuration)
                 .SetEase(jumpAnimationType)
                 .OnComplete(() => StateExecuteEnded?.Invoke());
         }
