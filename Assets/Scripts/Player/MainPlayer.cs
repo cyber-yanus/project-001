@@ -1,22 +1,19 @@
 using GribnoySup.TowerUp.States.AttackStates;
 using GribnoySup.TowerUp.States.MoveStates;
 using GribnoySup.TowerUp.States;
-using UnityEngine;
+using DefaultNamespace;
 using System;
+
 
 namespace GribnoySup.TowerUp.Player
 {
-    public class MainPlayer : MonoBehaviour, IStateActivator
+    public class MainPlayer : BaseCharacter, IStateActivator
     {
-        [SerializeField] private TriggerDetector triggerDetector;
-
-        public TriggerDetector TriggerDetector => triggerDetector;
-        
         public event Action<MoveStateType> MoveStateActivated;
         public event Action<AttackStateType> AttackStateActivated;
 
-        
 
+        
         public void Fall()
         {
             MoveStateActivated?.Invoke(MoveStateType.Fall);
@@ -35,11 +32,6 @@ namespace GribnoySup.TowerUp.Player
         public void BoostAttack()
         {
             AttackStateActivated?.Invoke(AttackStateType.BoostAttack);
-        }
-
-        public void SetActiveTriggerDetector(bool value)
-        {
-            triggerDetector.SetActiveValue(value);
         }
     }
 }

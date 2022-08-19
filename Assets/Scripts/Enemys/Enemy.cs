@@ -1,6 +1,8 @@
+using DefaultNamespace;
+
 namespace GribnoySup.TowerUp.Enemys
 {
-    public class Enemy
+    public class Enemy : BaseCharacter
     {
         
     }
