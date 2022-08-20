@@ -5,6 +5,8 @@ namespace GribnoySup.TowerUp.TriggerObjects
         None,
         Enemy,
         EnemyWeapon,
+        Player,
+        PlayerWeapon,
         Bonus
     }
 }

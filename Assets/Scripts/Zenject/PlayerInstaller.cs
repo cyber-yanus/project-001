@@ -2,14 +2,13 @@ using GribnoySup.TowerUp.TriggerManagers.Variants;
 using GribnoySup.TowerUp.Player;
 using UnityEngine;
 using Zenject;
-using System;
 
 
 namespace GribnoySup.TowerUp.Zenject
 {
     public class PlayerInstaller : MonoInstaller
     {
-        [SerializeField] private PlayerInstallSettings settings;
+        [SerializeField] private GameObjectInstallSettings settings;
         
         
         
@@ -23,7 +22,7 @@ namespace GribnoySup.TowerUp.Zenject
         private void BindPlayerPrefab()
         {
             MainPlayer mainPlayer =
-                Container.InstantiatePrefabForComponent<MainPlayer>(settings.PlayerPrefab, settings.SpawnPoint);
+                Container.InstantiatePrefabForComponent<MainPlayer>(settings.Prefab, settings.SpawnPoint);
 
             Container
                 .Bind<MainPlayer>()
@@ -47,14 +46,6 @@ namespace GribnoySup.TowerUp.Zenject
                 .FromNew()
                 .AsSingle()
                 .NonLazy();
-        }
-        
-        
-        [Serializable]
-        public class PlayerInstallSettings
-        {
-            public Transform SpawnPoint; 
-            public GameObject PlayerPrefab;
         }
     }
 }
