@@ -1,3 +1,4 @@
+using UnityEngine;
 using System;
 
 namespace DefaultNamespace
@@ -14,6 +15,8 @@ namespace DefaultNamespace
         {
             Health += diffValue;
             HealthChanged?.Invoke(Health);
+            
+            Debug.Log($"character updated health = {Health}");
         }
 
         public void AddHealthPoints(int health)
