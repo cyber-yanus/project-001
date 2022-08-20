@@ -1,11 +1,18 @@
 using UnityEngine;
 using System;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
+    [Serializable]
     public class HealthInspector
     {
-        public int Health { get; private set; }
+        [SerializeField] private int maxHealth;
+        [SerializeField] private int currentHealth;
+
+        public int MaxHealth => maxHealth;
+        public int CurrentHealth => currentHealth;
+        
 
         public event Action<int> HealthChanged;
 
@@ -13,16 +20,16 @@ namespace DefaultNamespace
 
         public void UpdateHealthPoints(int diffValue)
         {
-            Health += diffValue;
-            HealthChanged?.Invoke(Health);
+            currentHealth += diffValue;
+            HealthChanged?.Invoke(CurrentHealth);
             
-            Debug.Log($"character updated health = {Health}");
+            Debug.Log($"character updated health = {CurrentHealth}");
         }
 
-        public void AddHealthPoints(int health)
+        public void AddHealthPoints(int newHealth)
         {
-            Health = health;
-            HealthChanged?.Invoke(Health);
+            currentHealth = newHealth;
+            HealthChanged?.Invoke(CurrentHealth);
         }
 
     }

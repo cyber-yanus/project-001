@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 5454638818824221603}
   - component: {fileID: 5454638818824221614}
   - component: {fileID: 5454638818824221615}
+  - component: {fileID: 5454638818824221600}
   - component: {fileID: 5454638818824221601}
   - component: {fileID: 5454638818824221613}
   - component: {fileID: 4671900686602138572}
-  - component: {fileID: 5454638818824221600}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -126,6 +126,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &5454638818824221600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454638818824221604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6090e1d535274a57a82ecfccbe45398c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDetector: {fileID: 5454638818824221613}
+  healthInspector:
+    health: 200
 --- !u!114 &5454638818824221601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,19 +191,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
---- !u!114 &5454638818824221600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5454638818824221604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6090e1d535274a57a82ecfccbe45398c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerDetector: {fileID: 5454638818824221613}
 --- !u!1 &7779477489765556976
 GameObject:
   m_ObjectHideFlags: 0

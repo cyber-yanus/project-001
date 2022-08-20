@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public abstract class BaseCharacter : MonoBehaviour, IDamageTaker
+    public abstract class BaseCharacter : MonoBehaviour, IDamageTaker, IDying
     {
         [SerializeField] private TriggerDetector triggerDetector;
-
-        public HealthInspector HealthInspector { get; protected set; }
+        [SerializeField] protected HealthInspector healthInspector;
 
         public TriggerDetector TriggerDetector => triggerDetector;
+        public HealthInspector HealthInspector => healthInspector;
 
 
 
@@ -21,12 +21,16 @@ namespace DefaultNamespace
 
         protected virtual void Init()
         {
-            HealthInspector = new HealthInspector();
         }
 
         public void TakeDamage(int damage)
         {
-            HealthInspector.UpdateHealthPoints(-damage);
+            healthInspector.UpdateHealthPoints(-damage);
+        }
+
+        public void Die()
+        {
+             Debug.Log($"{gameObject.name} DIE");  
         }
 
         public void SetActiveTriggerDetector(bool value)
@@ -34,4 +38,6 @@ namespace DefaultNamespace
             triggerDetector.SetActiveValue(value);
         }
     }
+
+ 
 }
