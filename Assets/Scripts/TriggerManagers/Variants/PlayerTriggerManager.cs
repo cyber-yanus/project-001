@@ -1,4 +1,5 @@
 using GribnoySup.TowerUp.TriggerObjects;
+using GribnoySup.TowerUp.Damages;
 using GribnoySup.TowerUp.Player;
 using UnityEngine;
 using Zenject;
@@ -8,12 +9,15 @@ namespace GribnoySup.TowerUp.TriggerManagers.Variants
     public class PlayerTriggerManager : BaseTriggerManager
     {
         private MainPlayer _mainPlayer;
+        private DamageSystem _damageSystem;
 
 
-
+        
         [Inject]
         private void Construct(MainPlayer mainPlayer)
         {
+            _damageSystem = new DamageSystem();
+            
             _mainPlayer = mainPlayer;
             _mainPlayer.TriggerDetector.TriggerEntered += SelectTriggerEnteredAction;
         }
@@ -27,36 +31,37 @@ namespace GribnoySup.TowerUp.TriggerManagers.Variants
                     break;
                 
                 case TriggerObjectType.EnemyWeapon:
-                    TriggerEnemyWeaponAction();
+                    var damageGiver = triggerObject.GetComponent<IDamageGiver>();
+                    TriggerEnemyWeaponAction(damageGiver);
                     break;
                 
                 case TriggerObjectType.Bonus:
                     TriggerBonusAction();
                     break;
             }
-            
-            RequiredTriggerAction();
         }
 
         private void TriggerEnemyAction()
         {
-            Debug.Log("Attack");
+            _mainPlayer.Attack();
+            _mainPlayer.Jump();
+            
+            Debug.Log("Triggered with enemy");
         }
 
-        private void TriggerEnemyWeaponAction()
+        private void TriggerEnemyWeaponAction(IDamageGiver damageGiver)
         {
+            _damageSystem.Activate(damageGiver, _mainPlayer);
+            
             Debug.Log("player minus heal");
         }
 
         private void TriggerBonusAction()
         {
-            Debug.Log("Get Bonus");
-        }
-
-        private void RequiredTriggerAction()
-        {
-            _mainPlayer.Jump();
             _mainPlayer.Attack();
+            _mainPlayer.Jump();
+            
+            Debug.Log("Get Bonus");
         }
     }
 }

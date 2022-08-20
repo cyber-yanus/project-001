@@ -1,9 +1,10 @@
+using GribnoySup.TowerUp.Damages;
 using GribnoySup.TowerUp.Player;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public abstract class BaseCharacter : MonoBehaviour
+    public abstract class BaseCharacter : MonoBehaviour, IDamageTaker
     {
         [SerializeField] private TriggerDetector triggerDetector;
 
@@ -22,7 +23,12 @@ namespace DefaultNamespace
         {
             HealthInspector = new HealthInspector();
         }
-        
+
+        public void TakeDamage(int damage)
+        {
+            HealthInspector.UpdateHealthPoints(-damage);
+        }
+
         public void SetActiveTriggerDetector(bool value)
         {
             triggerDetector.SetActiveValue(value);
