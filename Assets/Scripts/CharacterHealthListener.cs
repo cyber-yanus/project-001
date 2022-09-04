@@ -4,7 +4,7 @@ namespace DefaultNamespace
 {
     public class CharacterHealthListener
     {
-        public void ConnectDeathWithHealth(BaseCharacter baseCharacter)
+        public void ActivateHealthStepActions(BaseCharacter baseCharacter)
         {
             baseCharacter.HealthInspector.HealthChanged += health =>
             {

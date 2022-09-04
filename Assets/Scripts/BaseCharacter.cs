@@ -1,6 +1,7 @@
 using GribnoySup.TowerUp.Damages;
 using GribnoySup.TowerUp.Player;
 using UnityEngine;
+using System;
 
 namespace DefaultNamespace
 {
@@ -9,9 +10,10 @@ namespace DefaultNamespace
         [SerializeField] private TriggerDetector triggerDetector;
         [SerializeField] protected HealthInspector healthInspector;
 
+        public event Action Died;
+        
         public TriggerDetector TriggerDetector => triggerDetector;
         public HealthInspector HealthInspector => healthInspector;
-
 
 
         private void Awake()
@@ -28,9 +30,10 @@ namespace DefaultNamespace
             healthInspector.UpdateHealthPoints(-damage);
         }
 
-        public void Die()
+        public virtual void Die()
         {
-             Debug.Log($"{gameObject.name} DIE");  
+            Died?.Invoke();
+            Debug.Log($"{gameObject.name} DIE");  
         }
 
         public void SetActiveTriggerDetector(bool value)

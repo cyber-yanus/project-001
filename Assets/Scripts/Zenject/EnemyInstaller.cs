@@ -15,8 +15,8 @@ namespace GribnoySup.TowerUp.Zenject
         public override void InstallBindings()
         {
             BindEnemyPool();
-            BindEnemyPrefab();
-            BindEnemyTriggerManager();
+            //BindEnemyPrefab();
+            //BindEnemyTriggerManager();
         }
 
         private void BindEnemyPrefab()

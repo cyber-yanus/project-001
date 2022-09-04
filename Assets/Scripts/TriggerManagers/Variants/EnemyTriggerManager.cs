@@ -2,7 +2,6 @@ using GribnoySup.TowerUp.TriggerObjects;
 using GribnoySup.TowerUp.Damages;
 using GribnoySup.TowerUp.Enemys;
 using UnityEngine;
-using Zenject;
 
 namespace GribnoySup.TowerUp.TriggerManagers.Variants
 {
@@ -10,11 +9,10 @@ namespace GribnoySup.TowerUp.TriggerManagers.Variants
     {
         private Enemy _enemy;
         private DamageSystem _damageSystem;
-        
-        
 
-        [Inject]
-        private void Construct(Enemy enemy)
+
+
+        public EnemyTriggerManager(Enemy enemy)
         {
             _damageSystem = new DamageSystem();
             
