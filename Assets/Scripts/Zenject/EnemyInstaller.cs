@@ -1,5 +1,6 @@
-using GribnoySup.TowerUp.Enemys;
 using GribnoySup.TowerUp.TriggerManagers.Variants;
+using DefaultNamespace.PoolObjects;
+using GribnoySup.TowerUp.Enemys;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,7 @@ namespace GribnoySup.TowerUp.Zenject
         
         public override void InstallBindings()
         {
+            BindEnemyPool();
             BindEnemyPrefab();
             BindEnemyTriggerManager();
         }
@@ -35,6 +37,11 @@ namespace GribnoySup.TowerUp.Zenject
                 .FromNew()
                 .AsSingle()
                 .NonLazy();
+        }
+
+        private void BindEnemyPool()
+        {
+            Container.BindMemoryPool<Enemy, EnemyPool>().FromComponentInNewPrefab(settings.Prefab);
         }
     }
 }

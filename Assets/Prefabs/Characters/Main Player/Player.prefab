@@ -140,7 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerDetector: {fileID: 5454638818824221613}
   healthInspector:
-    health: 200
+    maxHealth: 0
+    currentHealth: 0
 --- !u!114 &5454638818824221601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +208,7 @@ GameObject:
   - component: {fileID: 7486104611498468525}
   - component: {fileID: 1831806471595285325}
   m_Layer: 7
-  m_Name: Square
+  m_Name: Weapon Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

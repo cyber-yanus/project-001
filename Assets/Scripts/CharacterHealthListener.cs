@@ -4,10 +4,6 @@ namespace DefaultNamespace
 {
     public class CharacterHealthListener
     {
-        private BaseCharacter _targetCharacter;
-        
-        
-        
         public void ConnectDeathWithHealth(BaseCharacter baseCharacter)
         {
             baseCharacter.HealthInspector.HealthChanged += health =>
@@ -24,9 +20,5 @@ namespace DefaultNamespace
                 }
             };
         }
-        
-        
-        
-        
     }
 }
