@@ -1,3 +1,4 @@
+using Random = UnityEngine.Random;
 using System.Collections.Generic;
 using GribnoySup.TowerUp.Enemys;
 using Cysharp.Threading.Tasks;
@@ -9,19 +10,26 @@ namespace DefaultNamespace.PoolObjects
 {
     public class EnemySpawner : MonoBehaviour
     {
-        private EnemyPool _enemyPool;
+        [SerializeField] private int maxSpawnCount;
+        [SerializeField] private int delay;
 
         private List<Enemy> _spawnedEnemyList;
+        
+        private EnemyPool _enemyPool;
+        private EnemyConstructor _enemyConstructor;
 
 
 
         [Inject]
-        private void Construct(EnemyPool enemyPool)
+        private void Construct(EnemyPool enemyPool, EnemyConstructor enemyConstructor)
         {
             _enemyPool = enemyPool;
+            _enemyConstructor = enemyConstructor;
+
             _spawnedEnemyList = new List<Enemy>();
 
-            _enemyPool.Despawned += DespawnAction;
+            _enemyPool.Despawned += DeSpawnAction;
+            _enemyPool.Spawned += SpawnAction;
         }
 
         private void Start()
@@ -31,16 +39,28 @@ namespace DefaultNamespace.PoolObjects
 
         private async void Activate()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(2f));
-            
-            _enemyPool.Spawn();
+            while (true)
+            {
+                await UniTask.WaitUntil(() => _spawnedEnemyList.Count < maxSpawnCount);
+                
+                await UniTask.Delay(TimeSpan.FromSeconds(Random.Range(3,delay)));
+
+                _enemyPool.Spawn();
+
+                await UniTask.WaitForEndOfFrame();
+            }
         }
-        
-        private void DespawnAction(Enemy enemy)
+
+        private void SpawnAction(Enemy enemy)
+        {
+            _spawnedEnemyList.Add(enemy);
+            _enemyConstructor.BuildByType(enemy, EnemyType.Default);
+        }
+
+        private void DeSpawnAction(Enemy enemy)
         {
             _spawnedEnemyList.Remove(enemy);
-            
-            Activate();
+            _enemyConstructor.Exterminate(enemy);
         }
     }
 }

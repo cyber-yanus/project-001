@@ -1,5 +1,4 @@
 using GribnoySup.TowerUp.Damages;
-using GribnoySup.TowerUp.Player;
 using UnityEngine;
 using System;
 
@@ -7,15 +6,14 @@ namespace DefaultNamespace
 {
     public abstract class BaseCharacter : MonoBehaviour, IDamageTaker, IDying
     {
-        [SerializeField] private TriggerDetector triggerDetector;
         [SerializeField] protected HealthInspector healthInspector;
 
-        public event Action Died;
-        
-        public TriggerDetector TriggerDetector => triggerDetector;
         public HealthInspector HealthInspector => healthInspector;
+        
+        public event Action Died;
 
 
+        
         private void Awake()
         {
             Init();
@@ -35,12 +33,5 @@ namespace DefaultNamespace
             Died?.Invoke();
             Debug.Log($"{gameObject.name} DIE");  
         }
-
-        public void SetActiveTriggerDetector(bool value)
-        {
-            triggerDetector.SetActiveValue(value);
-        }
     }
-
- 
 }

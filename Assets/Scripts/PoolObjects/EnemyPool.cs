@@ -22,7 +22,6 @@ namespace DefaultNamespace.PoolObjects
         {
             base.OnSpawned(enemy);
             
-            enemy.HealthInspector.AddHealthPoints(enemy.HealthInspector.MaxHealth);
             enemy.gameObject.SetActive(true);
             
             Spawned?.Invoke(enemy);

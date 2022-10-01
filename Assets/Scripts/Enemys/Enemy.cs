@@ -1,18 +1,28 @@
 using GribnoySup.TowerUp.TriggerManagers.Variants;
 using DefaultNamespace;
+using UnityEngine;
+
 
 
 namespace GribnoySup.TowerUp.Enemys
 {
     public class Enemy : BaseCharacter
     {
-        private EnemyTriggerManager _enemyTriggerManager;
+        [SerializeField] private EnemyTriggerManager enemyTriggerManager;
+        [SerializeField] private EnemyEntitiesContainer enemyEntitiesContainer;
 
-
-
-        public void Awake()
+        public EnemyType CurrentEnemyType { get; set; }
+        
+        public EnemyTriggerManager EnemyTriggerManager => enemyTriggerManager;
+        public EnemyEntitiesContainer EnemyEntitiesContainer => enemyEntitiesContainer;
+        
+        
+        
+        protected override void Init()
         {
-            _enemyTriggerManager = new EnemyTriggerManager(this);
+            base.Init();
+            
+            enemyTriggerManager.Init(this);
         }
     }
 }

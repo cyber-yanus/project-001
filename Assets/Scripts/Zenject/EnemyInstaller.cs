@@ -1,4 +1,3 @@
-using GribnoySup.TowerUp.TriggerManagers.Variants;
 using DefaultNamespace.PoolObjects;
 using GribnoySup.TowerUp.Enemys;
 using UnityEngine;
@@ -8,40 +7,24 @@ namespace GribnoySup.TowerUp.Zenject
 {
     public class EnemyInstaller : MonoInstaller
     {
-        [SerializeField] private GameObjectInstallSettings settings;
+        [SerializeField] private GameObject enemyPrefab;
         
         
         
         public override void InstallBindings()
         {
             BindEnemyPool();
-            //BindEnemyPrefab();
-            //BindEnemyTriggerManager();
-        }
-
-        private void BindEnemyPrefab()
-        {
-            Enemy enemy =
-                Container.InstantiatePrefabForComponent<Enemy>(settings.Prefab, settings.SpawnPoint);
-
-            Container
-                .Bind<Enemy>()
-                .FromInstance(enemy)
-                .AsSingle();    
+            BindEnemyConstructor();
         }
         
-        private void BindEnemyTriggerManager()
-        {
-            Container
-                .Bind<EnemyTriggerManager>()
-                .FromNew()
-                .AsSingle()
-                .NonLazy();
-        }
-
         private void BindEnemyPool()
         {
-            Container.BindMemoryPool<Enemy, EnemyPool>().FromComponentInNewPrefab(settings.Prefab);
+            Container.BindMemoryPool<Enemy, EnemyPool>().FromComponentInNewPrefab(enemyPrefab);
+        }
+
+        private void BindEnemyConstructor()
+        {
+            Container.Bind<EnemyConstructor>().FromNew().AsSingle();
         }
     }
 }

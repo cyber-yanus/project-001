@@ -3,7 +3,7 @@ using Zenject;
 
 namespace GribnoySup.TowerUp.Zenject
 {
-    public class BaseCharacterInstaller : MonoInstaller
+    public class BaseCharactersInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {

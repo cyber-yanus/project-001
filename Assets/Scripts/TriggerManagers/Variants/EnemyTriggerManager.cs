@@ -2,25 +2,13 @@ using GribnoySup.TowerUp.TriggerObjects;
 using GribnoySup.TowerUp.Damages;
 using GribnoySup.TowerUp.Enemys;
 using UnityEngine;
+using System;
 
 namespace GribnoySup.TowerUp.TriggerManagers.Variants
 {
-    public class EnemyTriggerManager : BaseTriggerManager
+    [Serializable]
+    public class EnemyTriggerManager : BaseCharacterTriggerManager<Enemy>
     {
-        private Enemy _enemy;
-        private DamageSystem _damageSystem;
-
-
-
-        public EnemyTriggerManager(Enemy enemy)
-        {
-            _damageSystem = new DamageSystem();
-            
-            _enemy = enemy;
-            _enemy.TriggerDetector.TriggerEntered += SelectTriggerEnteredAction;
-            _enemy.SetActiveTriggerDetector(true);
-        }
-
         protected override void SelectTriggerEnteredAction(TriggerObject triggerObject)
         {
             switch (triggerObject.Type)
@@ -34,7 +22,8 @@ namespace GribnoySup.TowerUp.TriggerManagers.Variants
 
         private void PlayerWeaponTriggerEntered(IDamageGiver damageGiver)
         {
-            _damageSystem.Activate(damageGiver, _enemy);
+            DamageSystem.Activate(damageGiver, TargetCharacter);
+            
             Debug.Log("Enemy minus heal");
         }
     }

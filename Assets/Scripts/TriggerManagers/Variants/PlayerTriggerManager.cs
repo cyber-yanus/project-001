@@ -1,29 +1,27 @@
+using System;
 using GribnoySup.TowerUp.TriggerObjects;
 using GribnoySup.TowerUp.Damages;
 using GribnoySup.TowerUp.Player;
 using UnityEngine;
-using Zenject;
+
 
 namespace GribnoySup.TowerUp.TriggerManagers.Variants
 {
-    public class PlayerTriggerManager : BaseTriggerManager
+    [Serializable]
+    public class PlayerTriggerManager : BaseCharacterTriggerManager<MainPlayer>
     {
-        private MainPlayer _mainPlayer;
-        private DamageSystem _damageSystem;
-
-
-        
-        [Inject]
-        private void Construct(MainPlayer mainPlayer)
+        public override void Init(MainPlayer targetCharacter)
         {
-            _damageSystem = new DamageSystem();
+            base.Init(targetCharacter);
             
-            _mainPlayer = mainPlayer;
-            _mainPlayer.TriggerDetector.TriggerEntered += SelectTriggerEnteredAction;
+            Activate();
         }
-        
+
         protected override void SelectTriggerEnteredAction(TriggerObject triggerObject)
         {
+            if (!triggerObject)
+                return;
+            
             switch (triggerObject.Type)
             {
                 case TriggerObjectType.Enemy:
@@ -43,23 +41,23 @@ namespace GribnoySup.TowerUp.TriggerManagers.Variants
 
         private void TriggerEnemyAction()
         {
-            _mainPlayer.Attack();
-            _mainPlayer.Jump();
+            TargetCharacter.Attack();
+            TargetCharacter.Jump();
             
             Debug.Log("Triggered with enemy");
         }
 
         private void TriggerEnemyWeaponAction(IDamageGiver damageGiver)
         {
-            _damageSystem.Activate(damageGiver, _mainPlayer);
+            DamageSystem.Activate(damageGiver, TargetCharacter);
             
-            Debug.Log("player minus heal");
+            Debug.Log("Player minus heal");
         }
 
         private void TriggerBonusAction()
         {
-            _mainPlayer.Attack();
-            _mainPlayer.Jump();
+            TargetCharacter.Attack();
+            TargetCharacter.Jump();
             
             Debug.Log("Get Bonus");
         }
