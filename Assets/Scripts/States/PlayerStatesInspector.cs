@@ -5,12 +5,12 @@ namespace GribnoySup.TowerUp.States
 {
     public class PlayerStatesInspector
     {
+        private MainPlayer _mainPlayer;
+
         private MovementStatesManager _movementStatesManager;
         private AttackStatesManager _attackStatesManager;
-        
-        private MainPlayer _mainPlayer;
-        
-        
+
+
         
         public PlayerStatesInspector(MainPlayer mainPlayer)
         {
@@ -29,7 +29,7 @@ namespace GribnoySup.TowerUp.States
         private void InitFallState()
         {
             var fallState = _movementStatesManager.MovementStatesContainer.GetStateByType(MoveStateType.Fall);
-            fallState.StateExecuteStarted += () => _mainPlayer.SetActiveTriggerDetector(true);
+            fallState.StateExecuteStarted += () => _mainPlayer.PlayerTriggerManager.Activate();
             
             fallState.StateExecuteEnded += _movementStatesManager.ClearCurrentState;
             fallState.StateExecuteEnded += _mainPlayer.Jump;
@@ -38,10 +38,10 @@ namespace GribnoySup.TowerUp.States
         private void InitJumpState()
         {
             var jumpState = _movementStatesManager.MovementStatesContainer.GetStateByType(MoveStateType.Jump);
-            jumpState.StateExecuteStarted += () => _mainPlayer.SetActiveTriggerDetector(false);
+            jumpState.StateExecuteStarted += () => _mainPlayer.PlayerTriggerManager.Deactivate();
             
             jumpState.StateExecuteEnded += _movementStatesManager.ClearCurrentState;
-            jumpState.StateExecuteEnded += () => _mainPlayer.SetActiveTriggerDetector(true);
+            jumpState.StateExecuteEnded += () => _mainPlayer.PlayerTriggerManager.Activate();
         }
         
     }

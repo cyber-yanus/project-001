@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -29,8 +28,12 @@ namespace DefaultNamespace
         public void AddHealthPoints(int newHealth)
         {
             currentHealth = newHealth;
-            HealthChanged?.Invoke(CurrentHealth);
+            //HealthChanged?.Invoke(CurrentHealth);
         }
 
+        public void AddMaxHealthPoints(int maxHealth)
+        {
+            this.maxHealth = maxHealth;
+        }
     }
 }

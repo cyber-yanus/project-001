@@ -1,5 +1,4 @@
 using GribnoySup.TowerUp.States.MoveStates;
-using Zenject;
 
 namespace GribnoySup.TowerUp.States
 {
@@ -7,9 +6,9 @@ namespace GribnoySup.TowerUp.States
     {
         public MovementStatesContainer MovementStatesContainer => StatesContainer as MovementStatesContainer;
 
-        public MovementStatesManager(DiContainer diContainer)
+        public MovementStatesManager(MovementStatesContainer movementStatesContainer)
         {
-            StatesContainer = diContainer.Resolve<MovementStatesContainer>();
+            StatesContainer = movementStatesContainer;
         }
     }
 }

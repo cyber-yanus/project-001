@@ -12,6 +12,7 @@ namespace GribnoySup.TowerUp.Zenject
         [SerializeField] private JumpConfig jumpConfig;
 
 
+        
         public override void InstallBindings()
         {
             Container.BindInstance(fallConfig).AsSingle();
